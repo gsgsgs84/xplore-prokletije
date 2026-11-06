@@ -4,7 +4,8 @@ One page that opens every Xplore Prokletije app. A 3D copy of the printed AR cub
 skyline. Each roll of the cube brings the next app's little scene up on its top face; tap the cube (or **Otvori**) and
 the camera dives into the app.
 
-**Live:** https://gsgsgs84.github.io/xplore-prokletije/ · QR card: `qr/xplore-prokletije.png`
+**Live:** https://gsgsgs84.github.io/xplore-prokletije/ · QR card: `qr/xplore-prokletije.png` · A4 QR poster for
+www.xplore-prokletije.com: `qr/xplore-prokletije-qr.pdf` (`tools/make_qr_pdf.py`, vector, checked by decoding)
 
 Runs in the phone's browser (Safari on iPhone, Chrome on Android), no install. ME / SQ / EN.
 
