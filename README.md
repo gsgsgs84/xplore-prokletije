@@ -88,6 +88,13 @@ texts are in `js/home/texts.js`.
 - `vendor/three/`: three.js r184 (MIT), the Safari-patched copy from Gusinjska kocka v2.
 - `fonts/`: Marcellus and Golos Text, subset to Latin (SIL Open Font License, licences beside them).
 
+## The Xplore button in the apps
+
+`shared/xplore-home.js` draws the "‹ Xplore" button that takes people from each app back to this page, in the app's
+language (`<html lang>`, else `?lang=`). Every app has a copy in its `js/` folder and an `<a class="xp-home">`
+where the button sits (class `xp-float` pins it to the top-left corner of its container). Change it here and copy it
+to the apps.
+
 ## Credits
 
 Supported by Turistička organizacija Gusinje and the Ministry of Tourism of Montenegro. Relief: Copernicus DEM
