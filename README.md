@@ -22,9 +22,9 @@ Runs in the phone's browser (Safari on iPhone, Chrome on Android), no install. M
   - 10–14 s: a second sweep clears it, and the photo is back.
   The photo's pixels are never moved, so the mountains stay exactly as photographed. Only the mist breathes a
   little, and the whole picture zooms in and out 3.5 % over the loop. The lower part fades into the paper.
-- **Logo** (`js/home/logo3d.js`). The kula from the emblem is a real 3D tower: window faces with the arched door,
-  QR faces, a hip roof, and the blue base frame with its square. It turns once every 24 s. The letters are cut from the
-  vector logo and ride a calm wave, like boats on still water.
+- **Logo** (`js/home/logo3d.js`). The original logo, exactly as drawn: every shape comes straight from
+  `icons/logo.svg` in its own colours, unlit. At rest it is the logo pixel for pixel. It only moves: the emblem sways
+  gently on its axis (about 13 degrees) and the letters ride a calm wave, like boats on still water.
 - **Menu.** Five rows, each with a live 3D thumbnail (`js/home/thumbs.js`):
   - Muzej na kocki: the museum's scanned džezva and fenjer take turns on a limestone pedestal.
   - Mapa Gusinja: the town model of Mapa Gusinja, with its hold-to-choose ring and light.
@@ -32,9 +32,12 @@ Runs in the phone's browser (Safari on iPhone, Chrome on Android), no install. M
     and it lights up.
   - Slagalica Gusinje: the 64 jigsaw pieces fly into the tray.
   - Planinarske staze u 3D: the Copernicus relief with real trails drawing themselves.
+  Each row has its own colour and a faint line motif (museum: a kilim diamond; map: streets; cube: a maze; jigsaw:
+  puzzle joints; trails: contour lines), on the same card, type and layout, so they read as one family. The open
+  button is a small 3D QR cube with the arrow on its front, in the row's colour, gently turning.
   The rows rise in one after another and a slow light sweeps across them. Tapping a row plays a glassy chime (one note
-  per row) and vibrates briefly on Android. The row then glows in the app's colour while its thumbnail spins with
-  sparks and a ring of light, the screen fills with that colour, and the app opens in the chosen language.
+  per row) and vibrates briefly on Android. The row then glows in its colour, the QR cube spins and its thumbnail
+  spins with sparks and a ring of light, the screen fills with that colour, and the app opens in the chosen language.
 - "Uskoro još igrica" and the supporters' line at the bottom.
 
 One WebGL canvas lies over the page and draws the header, the logo and the five thumbnails into their HTML boxes,

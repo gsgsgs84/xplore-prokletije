@@ -10,7 +10,7 @@ export const TAGS = {
 };
 
 export const HOME = {
-  me: { place: 'Gusinje · Crna Gora', soon: 'Uskoro još igrica', support: 'Uz podršku', open: 'Otvori' },
-  sq: { place: 'Gucia · Mali i Zi', soon: 'Së shpejti më shumë lojëra', support: 'Me mbështetjen e', open: 'Hape' },
-  en: { place: 'Gusinje · Montenegro', soon: 'More games coming soon', support: 'Supported by', open: 'Open' },
+  me: { soon: 'Uskoro još igrica', support: 'Uz podršku', open: 'Otvori' },
+  sq: { soon: 'Së shpejti më shumë lojëra', support: 'Me mbështetjen e', open: 'Hape' },
+  en: { soon: 'More games coming soon', support: 'Supported by', open: 'Open' },
 };

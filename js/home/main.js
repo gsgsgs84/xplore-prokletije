@@ -5,7 +5,7 @@ import { RoomEnvironment } from '../../vendor/three/addons/environments/RoomEnvi
 import { APPS, UI, LANGS, detectLang, appUrl } from '../apps.js';
 import { ORDER, TAGS, HOME } from './texts.js';
 import { MountainScan } from './scan.js';
-import { LogoKula } from './logo3d.js';
+import { LogoOriginal } from './logo3d.js';
 import * as sound from '../sound.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -36,7 +36,6 @@ for (const b of document.querySelectorAll('[data-lang]')) b.addEventListener('cl
   applyTexts();
 });
 rows.forEach((r, i) => { r.style.setProperty('--i', i); r.style.setProperty('--d', (0.55 + i * 0.09).toFixed(2)); r.style.setProperty('--c', app(r.dataset.app).color); });
-$('.place').style.setProperty('--d', '0.45');
 $('.soon').style.setProperty('--d', '1.05'); $('.credits').style.setProperty('--d', '1.15');
 applyTexts();
 
@@ -97,7 +96,7 @@ async function start() {
     fetch('data/scan.json').then((r) => r.json()), fetch('icons/logo.svg').then((r) => r.text()),
   ]);
   const scan = new MountainScan({ photo, mask, data, paper: '#f5f3ee' });
-  const logo = new LogoKula(svg); logo.reduced = reduced;
+  const logo = new LogoOriginal(svg); logo.reduced = reduced;
   const pmrem = new THREE.PMREMGenerator(renderer);
   const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
