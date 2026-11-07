@@ -1,5 +1,5 @@
 // Offline copy of the launcher (the apps themselves keep their own offline copies).
-const VERSION = 'xp-2.0.0';
+const VERSION = 'xp-2.0.1';
 const FILES = [
   './', 'index.html', 'kocka.html', 'css/home.css', 'css/app.css', 'manifest.webmanifest',
   'js/home/main.js', 'js/home/scan.js', 'js/home/logo3d.js', 'js/home/thumbs.js', 'js/home/gkm.js', 'js/home/texts.js',
