@@ -66,6 +66,16 @@ export function create(ctx) {
   const winM = new THREE.MeshBasicMaterial({ color: 0x2a1c12 });
   for (const [x, y] of [[-0.025, 0.09], [0.025, 0.09], [0, 0.09]]) { const w = new THREE.Mesh(new THREE.PlaneGeometry(0.012, 0.018), winM); w.position.set(x, y, 0.0505); kula.add(w); }
   kula.add(body, roof, door); kula.position.copy(goal); group.add(shadowed(kula));
+  // the real photo-scanned Kula Rašića from Gusinjska kocka, when the caller supplies it
+  if (ctx.building) ctx.building.then((m) => {
+    const s = 0.15 / Math.max(m.size[0], m.size[2]);
+    const mat = new THREE.MeshStandardMaterial({ map: m.map, roughness: 0.85, emissive: 0xffc35a, emissiveIntensity: 0, emissiveMap: m.map });
+    const real = new THREE.Mesh(m.geometry, mat); real.scale.setScalar(s); real.castShadow = true;
+    kula.children.forEach((c) => { c.visible = false; });
+    kula.add(real);
+    wallM.userData.real = mat;
+    ctx.clipNew?.(real);
+  }).catch(() => {});
   const doorBeam = beam(0xfff2c0, 0.035, 0.42); doorBeam.position.set(goal.x, top, goal.z + 0.085); group.add(doorBeam);
   const gold = glowSprite(0xffcf6a, 0.5, 0); gold.position.set(goal.x, top + 0.1, goal.z); group.add(gold);
   const sparks = new Sparkles(40, 0xffe39a, 0.028); group.add(sparks.points);
@@ -90,7 +100,7 @@ export function create(ctx) {
       ball.scale.setScalar(clamp(k / 0.25) * (1 - clamp((k - dur - 2) / 0.3)));
       if (!arrived && k >= dur) { arrived = true; sparks.burst(new THREE.Vector3(goal.x, top + 0.12, goal.z), 0.18, 0.6); ctx.sfx?.('ding'); }
       const glow = arrived ? clamp((k - dur) / 0.3) * (1 - clamp((k - dur - 2) / 0.4)) : 0;
-      wallM.emissiveIntensity = glow * 0.9; gold.material.opacity = glow * 0.85;
+      wallM.emissiveIntensity = glow * 0.9; if (wallM.userData.real) wallM.userData.real.emissiveIntensity = glow * 0.55; gold.material.opacity = glow * 0.85;
       doorBeam.material.opacity = (1 - glow) * (0.55 + 0.2 * Math.sin(t * 4));
       sparks.update(dt);
       if (k > dur + 2.6) { t0 = t; arrived = false; }

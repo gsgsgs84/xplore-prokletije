@@ -17,7 +17,7 @@ export function create(ctx) {
   const holder = new THREE.Group(); holder.position.y = 0.025; holder.scale.setScalar(S); group.add(holder);
   const sparks = new Sparkles(44, 0xffe2b0, 0.03); group.add(sparks.points);
   let pieces = [], t0 = 0, landed = 0;
-  const R = rng(4);
+  const R = rng(4), fly = ctx.fly ?? 1;
   loadTown().then((town) => {
     const t = town.clone();
     holder.add(t);
@@ -26,7 +26,7 @@ export function create(ctx) {
       const home = node.position.clone();
       node.scale.setScalar(0.962);                       // thin seams between pieces
       const a = R() * Math.PI * 2;
-      return { node, home, name: node.name, from: new THREE.Vector3(home.x * 0.4 + Math.cos(a) * 160, 260 + R() * 160, home.z * 0.4 + Math.sin(a) * 160), spin: (R() - 0.5) * 5, order: 0 };
+      return { node, home, name: node.name, from: new THREE.Vector3(home.x * 0.4 + Math.cos(a) * 160 * fly, (260 + R() * 160) * fly, home.z * 0.4 + Math.sin(a) * 160 * fly), spin: (R() - 0.5) * 5, order: 0 };
     });
     // order: outside ring inwards, the mosque's piece (F6) last
     pieces.sort((a, b) => Math.max(Math.abs(b.home.x), Math.abs(b.home.z)) - Math.max(Math.abs(a.home.x), Math.abs(a.home.z)) + (R() - 0.5) * 30);

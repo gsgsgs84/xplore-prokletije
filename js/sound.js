@@ -53,3 +53,23 @@ export function sfx(name) {
     default: break;
   }
 }
+
+// A glassy chime for the menu: one note per row (pentatonic, so any order sounds good) plus a soft sparkle
+const NOTES = [784, 880, 1047, 1175, 1319, 1568];
+export function chime(i = 0) {
+  if (!ac || !on) return;
+  if (ac.state !== 'running') { ac.resume().then(() => { if (ac.state === 'running') chime(i); }).catch(() => {}); return; }
+  const t = ac.currentTime + 0.005, f = NOTES[i % NOTES.length];
+  const out = ac.createGain(); out.gain.value = 0.9; out.connect(master);
+  const echo = ac.createDelay(); echo.delayTime.value = 0.13;
+  const fb = ac.createGain(); fb.gain.value = 0.28;
+  echo.connect(fb); fb.connect(echo); echo.connect(out);
+  for (const [mul, peak, dec] of [[1, 0.16, 1.1], [2.01, 0.05, 0.6], [3.98, 0.025, 0.35], [0.5, 0.05, 0.8]]) {
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(f * mul, t);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, t + dec);
+    o.connect(g); g.connect(out); g.connect(echo); o.start(t); o.stop(t + dec + 0.05);
+  }
+  noise(t, 0.25, 6000, 9000, 0.05, 2);
+  setTimeout(() => { try { fb.disconnect(); echo.disconnect(); out.disconnect(); } catch { /* already gone */ } }, 2500);
+}

@@ -141,3 +141,4 @@ export class Logo3D {
     }
   }
 }
+export { parsePath, toShapes, LW, LH };

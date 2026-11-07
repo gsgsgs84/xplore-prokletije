@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Xplore Prokletije</title>
-<meta name="description" content="Xplore Prokletije: sve aplikacije projekta na jednom mjestu. Muzej na kocki, Mapa Gusinja, Gusinjska kocka, Slagalica Gusinje, Planinarske staze u 3D, Gdje su mace?">
-<meta name="theme-color" content="#2b3a66">
+<meta name="description" content="Xplore Prokletije: aplikacije u proširenoj stvarnosti o Gusinju i Prokletijama. Muzej na kocki, Mapa Gusinja, Gusinjska kocka, Slagalica Gusinje, Planinarske staze u 3D.">
+<meta name="theme-color" content="#f5f3ee">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -13,101 +13,63 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Xplore">
 <meta property="og:title" content="Xplore Prokletije">
-<meta property="og:description" content="Sve aplikacije projekta Xplore Prokletije na jednom mjestu.">
+<meta property="og:description" content="Gusinje i Prokletije u proširenoj stvarnosti.">
 <meta property="og:image" content="icons/og.png">
 <link rel="preload" href="fonts/marcellus.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="fonts/golos.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/scan-photo.jpg" as="image">
 <link rel="modulepreload" href="vendor/three/three.core.min.js">
 <link rel="modulepreload" href="vendor/three/three.module.min.js">
-<link rel="modulepreload" href="js/main.js">
-<link rel="stylesheet" href="css/app.css">
+<link rel="modulepreload" href="js/home/main.js">
+<link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 <canvas id="gl" aria-hidden="true"></canvas>
-<div id="dive" aria-hidden="true"></div>
 
-<div id="app">
-  <header class="top">
-    <button id="listBtn" class="pill" type="button">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-      <span data-t="all">Sve aplikacije</span>
-    </button>
-    <div class="tools">
-      <div class="lang" role="group" data-ta="lang">
-        <button type="button" data-lang="me">ME</button><button type="button" data-lang="sq">SQ</button><button type="button" data-lang="en">EN</button>
-      </div>
-      <button id="soundBtn" class="icon" type="button" aria-pressed="true">
-        <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.6 7.6 0 0 1 0 11"/></svg>
-        <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <div id="logoSlot"><img src="icons/logo.svg" alt="Xplore Prokletije" width="1152" height="472"></div>
-
-  <main id="stage">
-    <h1 class="sr">Xplore Prokletije</h1>
-    <button id="prev" class="arrow" type="button" data-ta="prev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <button id="next" class="arrow" type="button" data-ta="next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-    <p id="hint"><svg viewBox="0 0 48 24" aria-hidden="true"><path d="M6 12h36M12 6l-6 6 6 6M36 6l6 6-6 6"/></svg><span data-t="hint"></span></p>
-  </main>
-
-  <section id="sheet" aria-live="polite">
-    <div class="meta"><span class="count"></span><span class="dot" aria-hidden="true"></span><span class="play"></span></div>
-    <h2 class="name"></h2>
-    <p class="desc"></p>
-    <div class="actions">
-      <a id="openBtn" class="btn primary" href="https://gsgsgs84.github.io/gusinjska-bastina/kocka.html"><span data-t="open">Otvori</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
-      <button id="scanBtn" class="btn ghost" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
-        <span data-t="scan">Skeniraj kocku</span>
-      </button>
-    </div>
-    <nav class="dots" aria-label="Xplore Prokletije"></nav>
-  </section>
-</div>
-
-<div id="list" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="listTitle">
-  <div class="panel">
-    <div class="phead">
-      <h2 id="listTitle" data-t="listTitle">Sve aplikacije</h2>
-      <button id="listClose" class="icon" type="button" data-ta="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
-    <p class="lead" data-t="listLead"></p>
-    <ul id="listItems"></ul>
-    <footer class="credits">
-      <p><span data-t="support"></span>: <span id="partners"></span></p>
-      <p data-t="part"></p>
-      <p class="small" data-t="credits"></p>
-    </footer>
+<header id="hero">
+  <div class="lang" role="group" aria-label="Jezik / Gjuha / Language">
+    <button type="button" data-lang="me">ME</button><span aria-hidden="true">·</span><button type="button" data-lang="sq">SQ</button><span aria-hidden="true">·</span><button type="button" data-lang="en">EN</button>
   </div>
-</div>
+</header>
 
-<div id="scan" class="overlay dark" hidden role="dialog" aria-modal="true">
-  <video playsinline muted></video>
-  <canvas class="scan-draw"></canvas>
-  <div class="scan-hud">
-    <button id="scanClose" class="icon light" type="button" data-ta="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <div class="scan-center">
-      <svg class="scan-ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="54"/><circle class="fill" cx="60" cy="60" r="54" pathLength="1"/></svg>
-      <div class="scan-app"></div>
-    </div>
-    <div class="scan-foot"><p class="scan-msg"></p><p class="scan-lead small" data-t="scanLead"></p></div>
-  </div>
-</div>
+<main id="page">
+  <div id="logo"><img src="icons/logo.svg" alt="Xplore Prokletije" width="1152" height="472"></div>
+  <p class="place" data-h="place">Gusinje · Crna Gora</p>
 
+  <nav id="menu" aria-label="Xplore Prokletije">
+    <a class="row" data-app="muzej" href="https://gsgsgs84.github.io/gusinjska-bastina/kocka.html">
+      <span class="num">01</span><span class="thumb"><span class="gl"></span></span>
+      <span class="txt"><b>Muzej na kocki</b><small>Eksponati izranjaju na vašoj kocki</small></span>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="row" data-app="mapa" href="https://wave84mn.github.io/city-map/">
+      <span class="num">02</span><span class="thumb"><span class="gl"></span></span>
+      <span class="txt"><b>Mapa Gusinja</b><small>Cijelo Gusinje na dlanu</small></span>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="row" data-app="kocka" href="https://bertiscus.github.io/gusinjska-kocka/v2/">
+      <span class="num">03</span><span class="thumb"><span class="gl"></span></span>
+      <span class="txt"><b>Gusinjska kocka</b><small>Provedi kuglu kroz lavirint</small></span>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="row" data-app="slagalica" href="https://wave84mn.github.io/gusinje-slagalica/">
+      <span class="num">04</span><span class="thumb"><span class="gl"></span></span>
+      <span class="txt"><b>Slagalica Gusinje</b><small>Složi grad od 64 dijela</small></span>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="row" data-app="staze" href="https://gsgsgs84.github.io/gusinjska-bastina/staze.html">
+      <span class="num">05</span><span class="thumb"><span class="gl"></span></span>
+      <span class="txt"><b>Planinarske staze u 3D</b><small>18 staza u reljefu Prokletija</small></span>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </nav>
+
+  <p class="soon" data-h="soon">Uskoro još igrica</p>
+  <footer class="credits"><span data-h="support">Uz podršku</span>: <span id="partners">Turistička organizacija Gusinje · Ministarstvo turizma Crne Gore</span></footer>
+</main>
+
+<div id="veil" aria-hidden="true"></div>
 <div id="dbg" hidden></div>
-<noscript>
-  <ul class="nojs">
-    <li><a href="https://gsgsgs84.github.io/gusinjska-bastina/kocka.html">Muzej na kocki</a></li>
-    <li><a href="https://wave84mn.github.io/city-map/">Mapa Gusinja</a></li>
-    <li><a href="https://bertiscus.github.io/gusinjska-kocka/v2/">Gusinjska kocka</a></li>
-    <li><a href="https://wave84mn.github.io/gusinje-slagalica/">Slagalica Gusinje</a></li>
-    <li><a href="https://gsgsgs84.github.io/gusinjska-bastina/staze.html">Planinarske staze u 3D</a></li>
-    <li><a href="https://gsgsgs84.github.io/gusinjska-bastina/mace.html">Gdje su mace?</a></li>
-  </ul>
-</noscript>
-<script type="module" src="js/main.js"></script>
+<script type="module" src="js/home/main.js"></script>
 </body>
 </html>

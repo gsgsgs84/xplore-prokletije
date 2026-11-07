@@ -1,7 +1,11 @@
 // Offline copy of the launcher (the apps themselves keep their own offline copies).
-const VERSION = 'xp-1.0.0';
+const VERSION = 'xp-2.0.0';
 const FILES = [
-  './', 'index.html', 'css/app.css', 'manifest.webmanifest',
+  './', 'index.html', 'kocka.html', 'css/home.css', 'css/app.css', 'manifest.webmanifest',
+  'js/home/main.js', 'js/home/scan.js', 'js/home/logo3d.js', 'js/home/thumbs.js', 'js/home/gkm.js', 'js/home/texts.js',
+  'assets/scan-photo.jpg', 'assets/scan-mask.png', 'data/scan.json',
+  'assets/models/dzezva.bin', 'assets/models/dzezva.jpg', 'assets/models/dzezva-n.jpg', 'assets/models/fenjer.bin', 'assets/models/fenjer.jpg',
+  'assets/models/fenjer-n.jpg', 'assets/models/kula-rasica.bin', 'assets/models/kula-rasica.jpg',
   'js/main.js', 'js/apps.js', 'js/fx.js', 'js/sky.js', 'js/cube.js', 'js/logo.js', 'js/sound.js', 'js/scan.js', 'js/cv/detector.js',
   'js/scenes/common.js', 'js/scenes/cat.js', 'js/scenes/muzej.js', 'js/scenes/mapa.js', 'js/scenes/kocka.js', 'js/scenes/slagalica.js', 'js/scenes/staze.js', 'js/scenes/mace.js',
   'vendor/three/three.core.min.js', 'vendor/three/three.module.min.js',
